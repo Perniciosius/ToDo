@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:to_do/utils/category.dart';
 import 'package:to_do/utils/constants.dart';
-import 'package:to_do/utils/helper.dart';
 
 class CategoryCard extends StatelessWidget {
   final int taskCount;
