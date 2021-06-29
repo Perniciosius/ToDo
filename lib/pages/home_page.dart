@@ -18,6 +18,7 @@ class HomePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            primary: true,
             actions: [
               IconButton(
                 onPressed: () {
@@ -43,11 +44,20 @@ class HomePage extends StatelessWidget {
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('What\'s Up'),
-              titlePadding: EdgeInsetsDirectional.only(start: padding),
+              title: Text(
+                'What\'s Up',
+                style: TextStyle(
+                  fontSize: 30.0,
+                  color: Theme.of(context).textTheme.headline1?.color,
+                  fontWeight: Theme.of(context).textTheme.headline1?.fontWeight,
+                ),
+              ),
+              titlePadding: EdgeInsetsDirectional.only(
+                start: padding,
+                bottom: padding / 2,
+              ),
             ),
             expandedHeight: 100.0,
-            collapsedHeight: kToolbarHeight,
           ),
           SliverList(
             delegate: SliverChildListDelegate(
