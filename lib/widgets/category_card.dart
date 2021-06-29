@@ -42,7 +42,7 @@ class CategoryCard extends StatelessWidget {
                     height: 50.0,
                   ),
                   Text(
-                    '$taskCount tasks',
+                    '$taskCount task' + (taskCount != 1 ? 's' : ''),
                     style: TextStyle(color: secondaryTextColor),
                   ),
                 ],
