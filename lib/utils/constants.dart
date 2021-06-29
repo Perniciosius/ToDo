@@ -30,3 +30,5 @@ const double borderRadius = 20.0;
 const double categoryFontSize = 30.0;
 const double thickness = 2.0;
 const double dialogSize = 250.0;
+
+const FontWeight fontWeight = FontWeight.w600;

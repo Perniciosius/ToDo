@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/pages/home_page.dart';
 import 'package:to_do/provider/theme_provider.dart';
@@ -32,6 +33,7 @@ class App extends StatelessWidget {
               backgroundColor: lightBackgroundColor,
               elevation: 0.0,
             ),
+            fontFamily: GoogleFonts.varelaRound().fontFamily,
             primaryColor: lightBackgroundColor,
             buttonColor: lightButtonColor,
             iconTheme: IconThemeData(color: lightTextColor),
@@ -39,10 +41,22 @@ class App extends StatelessWidget {
             cardColor: lightListItemColor,
             accentColor: lightButtonColor,
             textTheme: TextTheme(
-              bodyText2: TextStyle(color: lightTextColor),
-              headline1: TextStyle(color: lightTextColor),
-              headline4: TextStyle(color: lightTextColor),
-              subtitle1: TextStyle(color: lightTextColor),
+              bodyText2: TextStyle(
+                color: lightTextColor,
+                fontWeight: fontWeight,
+              ),
+              headline1: TextStyle(
+                color: lightTextColor,
+                fontWeight: fontWeight,
+              ),
+              headline4: TextStyle(
+                color: lightTextColor,
+                fontWeight: fontWeight,
+              ),
+              subtitle1: TextStyle(
+                color: lightTextColor,
+                fontWeight: fontWeight,
+              ),
             ),
             floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: lightButtonColor,
@@ -55,6 +69,7 @@ class App extends StatelessWidget {
               backgroundColor: darkBackgroundColor,
               elevation: 0.0,
             ),
+            fontFamily: GoogleFonts.varelaRound().fontFamily,
             primaryColor: darkBackgroundColor,
             scaffoldBackgroundColor: darkBackgroundColor,
             buttonColor: darkButtonColor,
@@ -62,10 +77,22 @@ class App extends StatelessWidget {
             cardColor: darkListItemColor,
             accentColor: darkButtonColor,
             textTheme: TextTheme(
-              bodyText2: TextStyle(color: darkTextColor),
-              headline1: TextStyle(color: darkTextColor),
-              headline4: TextStyle(color: darkTextColor),
-              subtitle1: TextStyle(color: darkTextColor),
+              bodyText2: TextStyle(
+                color: darkTextColor,
+                fontWeight: fontWeight,
+              ),
+              headline1: TextStyle(
+                color: darkTextColor,
+                fontWeight: fontWeight,
+              ),
+              headline4: TextStyle(
+                color: darkTextColor,
+                fontWeight: fontWeight,
+              ),
+              subtitle1: TextStyle(
+                color: darkTextColor,
+                fontWeight: fontWeight,
+              ),
             ),
             floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: darkButtonColor,

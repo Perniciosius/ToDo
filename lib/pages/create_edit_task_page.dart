@@ -75,7 +75,10 @@ class _CreateEditTaskPageState extends State<CreateEditTaskPage> {
                       cursorColor: secondaryTextColor,
                       textCapitalization: TextCapitalization.sentences,
                       maxLines: 3,
-                      style: TextStyle(fontSize: 25.0),
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.w500,
+                      ),
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -87,6 +90,7 @@ class _CreateEditTaskPageState extends State<CreateEditTaskPage> {
                         hintText: 'Create new task',
                         hintStyle: TextStyle(
                           color: secondaryTextColor.withOpacity(0.8),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
