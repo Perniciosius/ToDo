@@ -65,13 +65,4 @@ class CategoryCard extends StatelessWidget {
       ),
     );
   }
-
-  String getCategoryName(Category category) {
-    switch (category) {
-      case Category.PERSONAL:
-        return 'Personal';
-      case Category.WORK:
-        return 'Work';
-    }
-  }
 }
