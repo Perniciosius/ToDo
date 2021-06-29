@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 150.0,
+                  height: 200.0,
                   child: Consumer<TodoProvider>(
                     builder: (context, todoProvider, _) => ListView(
                       scrollDirection: Axis.horizontal,

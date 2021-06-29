@@ -31,15 +31,28 @@ class CategoryCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                '$taskCount tasks',
-                style: TextStyle(color: secondaryTextColor),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    getCategoryImageName(category),
+                    width: 50.0,
+                    height: 50.0,
+                  ),
+                  Text(
+                    '$taskCount tasks',
+                    style: TextStyle(color: secondaryTextColor),
+                  ),
+                ],
               ),
               Text(
                 getCategoryName(category),
                 style: TextStyle(fontSize: categoryFontSize),
               ),
               LinearPercentIndicator(
+                padding: EdgeInsets.zero,
                 percent: taskCount != 0 ? completedTaskCount / taskCount : 1.0,
                 progressColor: getCategoryColor(category),
                 backgroundColor: getCategoryColor(category).withOpacity(0.3),
