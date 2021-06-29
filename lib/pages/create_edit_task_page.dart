@@ -47,113 +47,112 @@ class _CreateEditTaskPageState extends State<CreateEditTaskPage> {
         return true;
       },
       child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: padding,
-            vertical: 2.5 * padding,
-          ),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  onPressed: widget.closeContainer,
-                  icon: Icon(Icons.close),
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              primary: true,
+            ),
+            // SliverToBoxAdapter(
+            //   child: Padding(
+            //     padding: EdgeInsets.all(padding),
+            //     child: Align(
+            //       alignment: Alignment.topRight,
+            //       child: IconButton(
+            //         onPressed: widget.closeContainer,
+            //         icon: Icon(Icons.close),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.all(padding),
+                child: TextField(
+                  controller: _textEditingController,
+                  focusNode: _focusNode,
+                  cursorColor: secondaryTextColor,
+                  textCapitalization: TextCapitalization.sentences,
+                  maxLines: 3,
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                    hintText: 'Create new task',
+                    hintStyle: TextStyle(
+                      color: secondaryTextColor.withOpacity(0.8),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextField(
-                      controller: _textEditingController,
-                      focusNode: _focusNode,
-                      cursorColor: secondaryTextColor,
-                      textCapitalization: TextCapitalization.sentences,
-                      maxLines: 3,
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        focusedErrorBorder: InputBorder.none,
-                        hintText: 'Create new task',
-                        hintStyle: TextStyle(
-                          color: secondaryTextColor.withOpacity(0.8),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 2 * padding,
-                        bottom: padding,
-                      ),
-                      child: Text(
-                        'CATEGORY',
-                        style: TextStyle(color: secondaryTextColor),
-                      ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 150.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: secondaryTextColor),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: RadioListTile<Category>(
-                            selected: _category == Category.PERSONAL,
-                            activeColor: personalToDoColor,
-                            selectedTileColor:
-                                personalToDoColor.withOpacity(0.1),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            title: Text('Personal'),
-                            value: Category.PERSONAL,
-                            groupValue: _category,
-                            onChanged: categoryOnChanged,
-                          ),
-                        ),
-                        Container(
-                          width: 130.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: secondaryTextColor),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: RadioListTile<Category>(
-                            selected: _category == Category.WORK,
-                            activeColor: workTodoColor,
-                            selectedTileColor: workTodoColor.withOpacity(0.1),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            title: Text('Work'),
-                            value: Category.WORK,
-                            groupValue: _category,
-                            onChanged: categoryOnChanged,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.all(padding),
+                child: Text(
+                  'CATEGORY',
+                  style: TextStyle(color: secondaryTextColor),
                 ),
               ),
-            ],
-          ),
+            ),
+            SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Card(
+                  clipBehavior: Clip.antiAlias,
+                  color: _category == Category.values[index]
+                      ? Color.alphaBlend(
+                          Theme.of(context).accentColor.withOpacity(0.4),
+                          Theme.of(context).cardColor,
+                        )
+                      : Theme.of(context).cardColor,
+                  margin: EdgeInsets.all(padding),
+                  elevation: 10.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      _category = Category.values[index];
+                      setState(() {});
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(padding),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            getCategoryImageName(Category.values[index]),
+                            width: 50.0,
+                            height: 50.0,
+                          ),
+                          Text(
+                            getCategoryName(Category.values[index]),
+                            style: TextStyle(fontSize: 25.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                childCount: Category.values.length,
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                // crossAxisSpacing: padding,
+                mainAxisSpacing: padding,
+              ),
+            )
+          ],
         ),
         floatingActionButton: Padding(
           padding: EdgeInsets.only(bottom: 2 * padding),
