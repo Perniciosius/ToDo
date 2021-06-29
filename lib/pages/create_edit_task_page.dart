@@ -7,10 +7,12 @@ import 'package:to_do/utils/constants.dart';
 
 class CreateEditTaskPage extends StatefulWidget {
   final ToDoItem? toDoItem;
-  final Function()? closeContainer;
-  const CreateEditTaskPage(
-      {Key? key, this.toDoItem, required this.closeContainer})
-      : super(key: key);
+  final Function() closeContainer;
+  const CreateEditTaskPage({
+    Key? key,
+    this.toDoItem,
+    required this.closeContainer,
+  }) : super(key: key);
 
   @override
   _CreateEditTaskPageState createState() => _CreateEditTaskPageState();
@@ -40,7 +42,10 @@ class _CreateEditTaskPageState extends State<CreateEditTaskPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: backHandler,
+      onWillPop: () async {
+        widget.closeContainer();
+        return true;
+      },
       child: Scaffold(
         body: Padding(
           padding: EdgeInsets.symmetric(
@@ -53,7 +58,7 @@ class _CreateEditTaskPageState extends State<CreateEditTaskPage> {
               Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
-                  onPressed: backHandler,
+                  onPressed: widget.closeContainer,
                   icon: Icon(Icons.close),
                 ),
               ),
@@ -189,13 +194,5 @@ class _CreateEditTaskPageState extends State<CreateEditTaskPage> {
   void categoryOnChanged(Category? value) {
     _category = value!;
     setState(() {});
-  }
-
-  Future<bool> backHandler() async {
-    if (widget.toDoItem == null) {
-      return widget.closeContainer!();
-    }
-    Navigator.of(context).pop();
-    return true;
   }
 }
