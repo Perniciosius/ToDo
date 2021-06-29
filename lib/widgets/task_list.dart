@@ -11,10 +11,12 @@ import 'package:to_do/utils/constants.dart';
 class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return Consumer<TodoProvider>(
       builder: (context, todoProvider, _) {
         if (todoProvider.todoList == null) {
-          return SliverToBoxAdapter(
+          return SliverFillRemaining(
+            hasScrollBody: orientation == Orientation.landscape,
             child: Center(
               child: CircularProgressIndicator(),
             ),
@@ -24,7 +26,7 @@ class TaskList extends StatelessWidget {
 
         if (todoList.length == 0) {
           return SliverFillRemaining(
-            hasScrollBody: false,
+            hasScrollBody: orientation == Orientation.landscape,
             child: Center(
               child: Text(
                 "Tasks finished.",

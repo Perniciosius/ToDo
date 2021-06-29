@@ -41,6 +41,7 @@ class _CreateEditTaskPageState extends State<CreateEditTaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return WillPopScope(
       onWillPop: () async {
         widget.closeContainer();
@@ -147,49 +148,56 @@ class _CreateEditTaskPageState extends State<CreateEditTaskPage> {
                 childCount: Category.values.length,
               ),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
                 // crossAxisSpacing: padding,
                 mainAxisSpacing: padding,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: 2 * padding,
+                  top: 3 * padding,
+                ),
+                child: Center(
+                  child: FloatingActionButton.extended(
+                    icon: Icon(Icons.check),
+                    label: Text(
+                      widget.toDoItem == null ? 'Add task' : 'Update task',
+                    ),
+                    onPressed: () {
+                      var text = _textEditingController.text;
+                      if (text.length == 0) {
+                        _focusNode.requestFocus();
+                        return;
+                      }
+
+                      if (widget.toDoItem == null) {
+                        Provider.of<TodoProvider>(context, listen: false)
+                            .create(
+                          ToDoItem(
+                            title: text,
+                            category: _category,
+                          ),
+                        );
+                      } else {
+                        Provider.of<TodoProvider>(context, listen: false)
+                            .update(
+                          ToDoItem(
+                            id: widget.toDoItem!.id,
+                            title: text,
+                            category: _category,
+                          ),
+                        );
+                      }
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
               ),
             )
           ],
         ),
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(bottom: 2 * padding),
-          child: FloatingActionButton.extended(
-            icon: Icon(Icons.check),
-            label: Text(
-              widget.toDoItem == null ? 'Add task' : 'Update task',
-            ),
-            onPressed: () {
-              var text = _textEditingController.text;
-              if (text.length == 0) {
-                _focusNode.requestFocus();
-                return;
-              }
-
-              if (widget.toDoItem == null) {
-                Provider.of<TodoProvider>(context, listen: false).create(
-                  ToDoItem(
-                    title: text,
-                    category: _category,
-                  ),
-                );
-              } else {
-                Provider.of<TodoProvider>(context, listen: false).update(
-                  ToDoItem(
-                    id: widget.toDoItem!.id,
-                    title: text,
-                    category: _category,
-                  ),
-                );
-              }
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
-        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
