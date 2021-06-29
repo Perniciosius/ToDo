@@ -19,7 +19,7 @@ const Color darkButtonColor = Color(0xFFEB06FF);
 
 const Color lightBackgroundColor = Color(0xFFF8F9FE);
 const Color lightListItemColor = Color(0xFFFFFFFF);
-const Color lightTextColor = Color(0xFF03002E);
+const Color lightTextColor = Color(0xFF0D1E53);
 const Color lightButtonColor = Color(0xFF0669FD);
 
 const Color secondaryTextColor = Color(0xFF83878D);
