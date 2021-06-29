@@ -9,7 +9,7 @@ List<String> _categoryImage = [
 ];
 
 List<String> _categoryNames = [
-  'Person',
+  'Personal',
   'Work',
 ];
 
