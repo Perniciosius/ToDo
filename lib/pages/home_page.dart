@@ -11,7 +11,14 @@ import 'package:to_do/utils/constants.dart';
 import 'package:to_do/widgets/task_list.dart';
 import 'package:animations/animations.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Category? _selectedCategory;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,24 +82,36 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 200.0,
-                  child: Consumer<TodoProvider>(
-                    builder: (context, todoProvider, _) => ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        CategoryCard(
-                          category: Category.PERSONAL,
-                          taskCount: todoProvider.personalTaskCount,
-                          completedTaskCount:
-                              todoProvider.personalCompletedTaskCount,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: Category.values.length,
+                    itemBuilder: (context, index) {
+                      var category = Category.values[index];
+                      return Card(
+                        clipBehavior: Clip.antiAlias,
+                        color: _selectedCategory == category
+                            ? Color.alphaBlend(
+                                Theme.of(context).accentColor.withOpacity(0.25),
+                                Theme.of(context).cardColor,
+                              )
+                            : Theme.of(context).cardColor,
+                        margin: EdgeInsets.all(margin),
+                        elevation: 10.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
                         ),
-                        CategoryCard(
-                          category: Category.WORK,
-                          taskCount: todoProvider.workTaskCount,
-                          completedTaskCount:
-                              todoProvider.workCompletedTaskCount,
+                        child: InkWell(
+                          onTap: () {
+                            _selectedCategory =
+                                _selectedCategory != category ? category : null;
+                            setState(() {});
+                            Provider.of<TodoProvider>(context, listen: false)
+                                .applyCategoryFilter(_selectedCategory);
+                          },
+                          child: CategoryCard(category: category),
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ),
                 Padding(

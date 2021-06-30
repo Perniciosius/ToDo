@@ -5,33 +5,25 @@ import 'package:to_do/utils/database_helper.dart';
 
 class TodoProvider with ChangeNotifier {
   List<ToDoItem>? _toDoList;
-  List<ToDoItem>? get todoList => _toDoList;
 
-  int get personalTaskCount => (_toDoList != null)
+  Category? _categoryFilter;
+
+  List<ToDoItem>? get todoList => _categoryFilter == null
+      ? _toDoList
+      : _toDoList
+          ?.where((element) => element.category == _categoryFilter)
+          .toList();
+
+  int categoryTaskCount(Category category) => (_toDoList != null)
       ? _toDoList!
-          .where((element) => element.category == Category.PERSONAL)
+          .where((element) => element.category == category)
           .toList()
           .length
       : 0;
 
-  int get workTaskCount => (_toDoList != null)
+  int categoryCompletedTaskCount(Category category) => (_toDoList != null)
       ? _toDoList!
-          .where((element) => element.category == Category.WORK)
-          .toList()
-          .length
-      : 0;
-
-  int get personalCompletedTaskCount => (_toDoList != null)
-      ? _toDoList!
-          .where((element) =>
-              element.category == Category.PERSONAL && element.done)
-          .toList()
-          .length
-      : 0;
-
-  int get workCompletedTaskCount => (_toDoList != null)
-      ? _toDoList!
-          .where((element) => element.category == Category.WORK && element.done)
+          .where((element) => element.category == category && element.done)
           .toList()
           .length
       : 0;
@@ -79,5 +71,10 @@ class TodoProvider with ChangeNotifier {
     // var index = _toDoList!.indexWhere((element) => element.id == todoItem.id);
     // _toDoList![index] = todoItem;
     // notifyListeners();
+  }
+
+  void applyCategoryFilter(Category? category) {
+    _categoryFilter = category;
+    notifyListeners();
   }
 }
